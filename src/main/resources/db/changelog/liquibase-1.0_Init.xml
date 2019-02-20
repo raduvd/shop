@@ -1,0 +1,195 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="vancear" id="1">
+
+        <!--CREATE TABLES-->
+        <createTable tableName="CUSTOMER">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="FIRST_NAME" type="VARCHAR(50 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_NAME" type="VARCHAR(50 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_NAME" type="VARCHAR(50 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="LOCATION">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(50 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COUNTRY" type="VARCHAR(50 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CITY" type="VARCHAR(50 BYTE)"/>
+            <column name="COUNTY" type="VARCHAR(50 BYTE)"/>
+            <column name="STREET_ADDRESS" type="VARCHAR(1000 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="ORDER">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="SHIPPED_FROM_LOCATION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CUSTOMER" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="COUNTRY" type="VARCHAR(50 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CITY" type="VARCHAR(50 BYTE)"/>
+            <column name="COUNTY" type="VARCHAR(50 BYTE)"/>
+            <column name="STREET_ADDRESS" type="VARCHAR(1000 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="PRODUCT">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(50 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(1000 BYTE)"/>
+            <column name="PRICE" type="DECIMAL(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="WEIGHT" type="DECIMAL(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCT_CATEGORY" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SUPPLIER" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="PRODUCT_CATEGORY">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(50 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(1000 BYTE)"/>
+        </createTable>
+        <createTable tableName="SUPPLIER">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(50 BYTE)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="ORDER_DETAIL">
+            <column name="ORDER" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCT" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUANTITY" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="STOCK">
+            <column name="LOCATION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCT" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUANTITY" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--CREATE SEQUENCE-->
+    <changeSet author="vancear" id="2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="SEQ_CUSTOMER"/>
+            </not>
+        </preConditions>
+        <comment>If sequence already exists, leave it unaffected</comment>
+        <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9223372036854775807" minValue="1"
+                        sequenceName="SEQ_CUSTOMER" startValue="1"/>
+    </changeSet>
+    <changeSet author="vancear" id="3">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="SEQ_LOCATION"/>
+            </not>
+        </preConditions>
+        <comment>If sequence already exists, leave it unaffected</comment>
+        <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9223372036854775807" minValue="1"
+                        sequenceName="SEQ_LOCATION" startValue="1"/>
+    </changeSet>
+    <changeSet author="vancear" id="4">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="SEQ_ORDER"/>
+            </not>
+        </preConditions>
+        <comment>If sequence already exists, leave it unaffected</comment>
+        <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9223372036854775807" minValue="1"
+                        sequenceName="SEQ_ORDER" startValue="1"/>
+    </changeSet>
+    <changeSet author="vancear" id="5">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="SEQ_PRODUCT"/>
+            </not>
+        </preConditions>
+        <comment>If sequence already exists, leave it unaffected</comment>
+        <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9223372036854775807" minValue="1"
+                        sequenceName="SEQ_PRODUCT" startValue="1"/>
+    </changeSet>
+    <changeSet author="vancear" id="6">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="SEQ_PRODUCT_CATEGORY"/>
+            </not>
+        </preConditions>
+        <comment>If sequence already exists, leave it unaffected</comment>
+        <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9223372036854775807" minValue="1"
+                        sequenceName="SEQ_PRODUCT_CATEGORY" startValue="1"/>
+    </changeSet>
+    <changeSet author="vancear" id="7">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="SEQ_SUPPLIER"/>
+            </not>
+        </preConditions>
+        <comment>If sequence already exists, leave it unaffected</comment>
+        <createSequence cacheSize="20" cycle="false" incrementBy="1" maxValue="9223372036854775807" minValue="1"
+                        sequenceName="SEQ_SUPPLIER" startValue="1"/>
+    </changeSet>
+
+
+    <!--CREATE RELATIONSHIPS-->
+
+    <!-- CUSTOMER
+        LOCATION
+        ORDER
+        PRODUCT
+        PRODUCT_CATEGORY
+        SUPPLIER
+        -->
+</databaseChangeLog>
+
+
