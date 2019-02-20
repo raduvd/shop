@@ -1,4 +1,4 @@
-package ro.msg.learning.repository.daoImpl;
+package ro.msg.learning.repository.dao;
 
 import org.springframework.stereotype.Component;
 import ro.msg.learning.entity.Product;
@@ -9,6 +9,7 @@ import ro.msg.learning.entity.Product;
 @Component
 public interface ProductDao {
 
-    public void insertProduct(Product product);
+    public int insertProduct(Product product);
     public Product getProductById(Long id);
+    public int deleteProduct(Long id);
 }

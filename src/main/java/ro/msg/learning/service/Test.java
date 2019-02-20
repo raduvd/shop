@@ -3,7 +3,9 @@ package ro.msg.learning.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ro.msg.learning.entity.Product;
-import ro.msg.learning.repository.daoImpl.ProductDao;
+import ro.msg.learning.entity.ProductCategory;
+import ro.msg.learning.repository.dao.ProductCategoryDao;
+import ro.msg.learning.repository.dao.ProductDao;
 
 import java.math.BigDecimal;
 
@@ -16,7 +18,10 @@ public class Test {
     @Autowired
     private ProductDao productDao;
 
-    public Product test(Long id) {
+    @Autowired
+    private ProductCategoryDao productCategoryDao;
+
+    public String test(Long id) {
 
         final Product product = new Product();
 
@@ -28,8 +33,20 @@ public class Test {
         product.setSupplier(1L);
         product.setProductCategory(1L);
 
-        productDao.insertProduct(product);
+        final int insertedProducts = productDao.insertProduct(product);
+        final Product productReturned = productDao.getProductById(id);
+        final int deletedProducts = productDao.deleteProduct(id);
 
-        return productDao.getProductById(id);
+        final ProductCategory productCategory = new ProductCategory();
+        productCategory.setId(1L);
+        productCategory.setDescription("Description");
+        productCategory.setName("Name");
+
+        final int insertedProductCategory = productCategoryDao.insertProductCategoryIfNotPresent(productCategory);
+        final ProductCategory productCategoryReturned = productCategoryDao.getProductCategoryById(1L);
+        final int productCategoryDeleted = productCategoryDao.deleteProductCategory(1L);
+
+        return "Inserted Products: " + insertedProducts + "\nProduct returned: " + productReturned + "\nDeleted Products: " + deletedProducts +
+                "\nInserted ProductCategory: " + insertedProductCategory + "\nPoductCategory Returned: " + productCategoryReturned + "\nProductCategory Deleted: " + productCategoryDeleted;
     }
 }

@@ -18,13 +18,9 @@ public class TestController {
     private Test test;
 
     @RequestMapping("/test/{id}")
-    String home( @PathVariable Long id) {
+    String home(@PathVariable Long id) {
 
+        //save a Product and get that product, to demonstrate that the JDBC settings are working
         return test.test(id).toString();
     }
-
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(TestController.class, args);
-    }
-
 }

@@ -1,11 +1,11 @@
-package ro.msg.learning.repository.dao;
+package ro.msg.learning.repository.daoImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import ro.msg.learning.entity.Product;
-import ro.msg.learning.repository.daoImpl.ProductDao;
+import ro.msg.learning.repository.dao.ProductDao;
 import ro.msg.learning.repository.rowmapper.ProductRowMapper;
 
 /**
@@ -22,22 +22,28 @@ public class ProductDaoImpl implements ProductDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void insertProduct(Product product) {
+    public int insertProduct(Product product) {
 
         String sql = "INSERT INTO PRODUCT " +
-                "(ID, NAME, DESCRIPTION, PRICE, WEIGHT,PRODUCT_CATEGORY,SUPPLIER) VALUES (?, ?, ?,?,?,?,?)";
+                "(ID, NAME, DESCRIPTION, PRICE, WEIGHT,PRODUCT_CATEGORY,SUPPLIER) VALUES (?,?,?,?,?,?,?)";
 
-        jdbcTemplate.update(sql, product.getId(), product.getName(),
+        return jdbcTemplate.update(sql, product.getId(), product.getName(),
                 product.getDescription(), product.getPrice(), product.getWeight(), product.getProductCategory(), product.getSupplier());
     }
 
     public Product getProductById(Long id) {
 
-        String sql ="SELECT * from PRODUCT where id = ?";
+        String sql = "SELECT * from PRODUCT where id = ?";
 
-        return jdbcTemplate.queryForObject(sql, new ProductRowMapper(),id);
+        return jdbcTemplate.queryForObject(sql, new ProductRowMapper(), id);
     }
 
+    public int deleteProduct(Long id) {
+
+        String sql = "DELETE PRODUCT WHERE ID =?";
+
+        return jdbcTemplate.update(sql, id);
+    }
 }
 
 
