@@ -2,10 +2,10 @@ package ro.msg.learning.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -20,10 +20,13 @@ public class ProductCategory implements Serializable {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", length = 1000)
     private String description;
+
+    @OneToMany(mappedBy = "productCategory", fetch = FetchType.LAZY)
+    private List<Product> productList = new ArrayList<>();
 }
 

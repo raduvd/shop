@@ -2,10 +2,12 @@ package ro.msg.learning.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ro.msg.learning.entity.Location;
 import ro.msg.learning.entity.Product;
-import ro.msg.learning.repository.daoImpl.ProductDao;
-
-import java.math.BigDecimal;
+import ro.msg.learning.entity.composite.StockCompositeKey;
+import ro.msg.learning.repository.LocationRepository;
+import ro.msg.learning.repository.ProductRepository;
+import ro.msg.learning.repository.StockRepository;
 
 /**
  * Created by vancer at 2/19/2019
@@ -14,22 +16,20 @@ import java.math.BigDecimal;
 public class Test {
 
     @Autowired
-    private ProductDao productDao;
+    private ProductRepository productRepository;
 
-    public Product test(Long id) {
+    @Autowired
+    private StockRepository stockRepository;
 
-        final Product product = new Product();
+    @Autowired
+    private LocationRepository locationRepository;
 
-        product.setId(id);
-        product.setDescription("Description");
-        product.setName("Name");
-        product.setPrice(new BigDecimal(2432));
-        product.setWeight(23.4D);
-        product.setSupplier(1L);
-        product.setProductCategory(1L);
+    public String test(Long id) {
 
-        productDao.insertProduct(product);
+        final Product product = productRepository.getOne(id);
 
-        return productDao.getProductById(id);
+        final Location location = locationRepository.getOne(id);
+
+        return stockRepository.getOne(new StockCompositeKey(product, location)).toString();
     }
 }

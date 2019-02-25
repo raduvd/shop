@@ -1,8 +1,10 @@
 package ro.msg.learning.entity;
 
 import lombok.Data;
+import ro.msg.learning.entity.composite.StockCompositeKey;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
@@ -13,11 +15,8 @@ import java.io.Serializable;
 @Entity(name = "STOCK")
 public class Stock implements Serializable {
 
-    @Column(name = "PRODUCT", nullable = false)
-    private Product product;
-
-    @Column(name = "LOCATION", nullable = false)
-    private Location location;
+    @EmbeddedId
+    private StockCompositeKey stockCompositeKey;
 
     @Column(name = "QUANTITY", nullable = false)
     private Integer quantity;

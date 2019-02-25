@@ -1,10 +1,9 @@
 package ro.msg.learning.entity;
 
 import lombok.Data;
+import ro.msg.learning.entity.composite.OrderDetailCompositeKey;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -14,12 +13,9 @@ import java.io.Serializable;
 @Entity(name = "ORDER_DETAIL")
 public class OrderDetail implements Serializable {
 
-    @Column(name = "ORDER", nullable = false)
-    private Order order;
+    @EmbeddedId
+    private OrderDetailCompositeKey orderDetailCompositeKey;
 
-    @Column(name = "PRODUCT", nullable = false)
-    private Product product;
-
-    @Column(name = "QUANTITY", nullable = false)
-    private Integer quantity;
+    @Column(name = "ORDER_QUANTITY", nullable = false)
+    private Integer orderQuantity;
 }

@@ -5,7 +5,6 @@ package ro.msg.learning.controller;
  */
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,13 +17,8 @@ public class TestController {
     private Test test;
 
     @RequestMapping("/test/{id}")
-    String home( @PathVariable Long id) {
+    String home(@PathVariable Long id) {
 
-        return test.test(id).toString();
+        return test.test(id);
     }
-
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(TestController.class, args);
-    }
-
 }
