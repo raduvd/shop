@@ -1,4 +1,4 @@
-package ro.msg.learning.repository.daoImpl;
+package ro.msg.learning.repository.daoimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -43,6 +43,10 @@ public class ProductDaoImpl implements ProductDao {
         String sql = "DELETE PRODUCT WHERE ID =?";
 
         return jdbcTemplate.update(sql, id);
+    }
+
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
     }
 }
 

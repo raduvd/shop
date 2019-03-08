@@ -1,7 +1,6 @@
 package ro.msg.learning.repository.rowmapper;
 
 import org.springframework.jdbc.core.RowMapper;
-import ro.msg.learning.entity.Product;
 import ro.msg.learning.entity.ProductCategory;
 
 import java.sql.ResultSet;

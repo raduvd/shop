@@ -26,7 +26,7 @@ public class Product implements Serializable {
     private String description;
 
     @Column(name = "PRICE", nullable = false, precision = 10,scale = 2)
-    private BigDecimal price;
+    private Double price;
 
     @Column(name = "WEIGHT", nullable = false, precision = 10, scale = 2)
     private Double weight;

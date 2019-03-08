@@ -1,4 +1,4 @@
-package ro.msg.learning.repository.daoImpl;
+package ro.msg.learning.repository.daoimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -55,6 +55,10 @@ public class ProductCategoryDaoImpl implements ProductCategoryDao {
         parameterMap.put("id", id);
 
         return namedJdbcTemplate.update(sql, parameterMap);
+    }
+
+    public NamedParameterJdbcTemplate getJdbcTemplate() {
+        return namedJdbcTemplate;
     }
 }
 

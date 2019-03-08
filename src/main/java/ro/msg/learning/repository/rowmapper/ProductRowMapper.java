@@ -19,7 +19,7 @@ public class ProductRowMapper implements RowMapper<Product> {
         product.setId(resultSet.getLong("id"));
         product.setName(resultSet.getString("name"));
         product.setDescription(resultSet.getString("description"));
-        product.setPrice(resultSet.getBigDecimal("id"));
+        product.setPrice(resultSet.getDouble("price"));
         product.setWeight(resultSet.getDouble("weight"));
         product.setProductCategory(resultSet.getLong("product_category"));
         product.setSupplier(resultSet.getLong("supplier"));

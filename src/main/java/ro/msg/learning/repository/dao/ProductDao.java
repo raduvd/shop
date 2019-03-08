@@ -1,5 +1,6 @@
 package ro.msg.learning.repository.dao;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ro.msg.learning.entity.Product;
 
@@ -9,7 +10,11 @@ import ro.msg.learning.entity.Product;
 @Component
 public interface ProductDao {
 
-    public int insertProduct(Product product);
-    public Product getProductById(Long id);
-    public int deleteProduct(Long id);
+    int insertProduct(Product product);
+
+    Product getProductById(Long id);
+
+    int deleteProduct(Long id);
+
+    JdbcTemplate getJdbcTemplate();
 }
