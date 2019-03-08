@@ -3,14 +3,14 @@ package ro.msg.learning.entity;
 import lombok.Data;
 
 import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
  * Created by vancer at 2/12/2019
  */
 @Data
-@MappedSuperclass
+@Embeddable
 public class Address implements Serializable {
 
     @Column(name = "COUNTRY", nullable = false, length = 50)

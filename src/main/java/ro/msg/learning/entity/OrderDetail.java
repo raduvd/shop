@@ -3,7 +3,9 @@ package ro.msg.learning.entity;
 import lombok.Data;
 import ro.msg.learning.entity.composite.OrderDetailCompositeKey;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**

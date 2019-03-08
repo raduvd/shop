@@ -1,8 +1,11 @@
 package ro.msg.learning.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,17 +14,36 @@ import java.util.List;
  */
 @Data
 @Entity(name = "LOCATION")
-public class Location extends Address {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Location implements Serializable{
+
+    public Location(Long id) {
+        this.id = id;
+    }
+
+    public Location(Location location) {
+        this.id = location.id;
+        this.name = location.name;
+        this.orderList = location.orderList;
+        this.stockList = location.stockList;
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "location_sequence")
+    @SequenceGenerator(name = "location_sequence", sequenceName = "location_sequence", allocationSize = 1, initialValue = 1000)
     @Column(name = "ID")
     private Long id;
 
     @Column(name = "NAME", nullable = false, length = 50)
     private String name;
 
-    @OneToMany(mappedBy = "shippedFromLocation", fetch = FetchType.LAZY)
+    @Embedded
+    private Address address;
+
+    @OneToMany(mappedBy = "shippedFromLocation")
     private List<Order> orderList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "stockCompositeKey.location", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "stockCompositeKey.location")
     private List<Stock> stockList = new ArrayList<>();
 }

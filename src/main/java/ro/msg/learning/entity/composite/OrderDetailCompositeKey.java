@@ -1,5 +1,7 @@
 package ro.msg.learning.entity.composite;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -7,7 +9,6 @@ import ro.msg.learning.entity.Order;
 import ro.msg.learning.entity.Product;
 
 import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
@@ -19,13 +20,15 @@ import java.io.Serializable;
 @Embeddable
 @EqualsAndHashCode(exclude = {"shopOrder", "product"})
 @ToString(exclude = {"shopOrder", "product"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
+        property = "@id")
 public class OrderDetailCompositeKey implements Serializable {
 
-    @ManyToOne(targetEntity = Order.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Order.class)
     @JoinColumn(name = "SHOP_ORDER", nullable = false)
     private Order shopOrder;
 
-    @ManyToOne(targetEntity = Product.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Product.class)
     @JoinColumn(name = "PRODUCT", nullable = false)
     private Product product;
 }

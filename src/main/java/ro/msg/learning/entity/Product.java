@@ -1,8 +1,8 @@
 package ro.msg.learning.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,13 +14,23 @@ import java.util.List;
  * Created by vancer at 2/12/2019
  */
 @Data
-@EqualsAndHashCode(exclude={"productCategory","supplier"})
-@ToString(exclude={"productCategory", "supplier"})
+@EqualsAndHashCode(exclude = {"productCategory", "supplier"})
+@ToString(exclude = {"productCategory", "supplier"})
 @Entity(name = "PRODUCT")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
+        property = "@id")
+@AllArgsConstructor()
+@NoArgsConstructor
 public class Product implements Serializable {
+
+    public Product(Long id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
+    @SequenceGenerator(name = "product_sequence", sequenceName = "product_sequence", allocationSize = 1, initialValue = 1000)
     private Long id;
 
     @Column(name = "NAME", nullable = false, length = 50)
@@ -35,17 +45,17 @@ public class Product implements Serializable {
     @Column(name = "WEIGHT", nullable = false, precision = 10, scale = 2)
     private Double weight;
 
-    @ManyToOne(targetEntity = ProductCategory.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = ProductCategory.class)
     @JoinColumn(name = "PRODUCT_CATEGORY", nullable = false)
     private ProductCategory productCategory;
 
-    @ManyToOne(targetEntity = Supplier.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Supplier.class)
     @JoinColumn(name = "SUPPLIER", nullable = false)
     private Supplier supplier;
 
-    @OneToMany(mappedBy = "orderDetailCompositeKey.product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "orderDetailCompositeKey.product")
     private List<OrderDetail> orderDetailList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "stockCompositeKey.product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "stockCompositeKey.product")
     private List<Stock> productList = new ArrayList<>();
 }

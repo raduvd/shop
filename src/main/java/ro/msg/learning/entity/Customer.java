@@ -16,6 +16,8 @@ public class Customer implements Serializable {
 
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_sequence")
+    @SequenceGenerator(name = "customer_sequence", sequenceName = "customer_sequence", allocationSize = 1, initialValue = 1000)
     private Long id;
 
     @Column(name = "FIRST_NAME", nullable = false, length = 50)
@@ -27,6 +29,6 @@ public class Customer implements Serializable {
     @Column(name = "USER_NAME", nullable = false, length = 50)
     private String username;
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    private List<Order> productList = new ArrayList<>();
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orderList = new ArrayList<>();
 }

@@ -1,14 +1,12 @@
 package ro.msg.learning.entity.composite;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 import ro.msg.learning.entity.Location;
 import ro.msg.learning.entity.Product;
 
 import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
@@ -21,13 +19,16 @@ import java.io.Serializable;
 @EqualsAndHashCode(exclude = {"location", "product"})
 @ToString(exclude = {"location", "product"})
 @AllArgsConstructor
+@NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
+        property = "@id")
 public class StockCompositeKey implements Serializable {
 
-    @ManyToOne(targetEntity = Product.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Product.class)
     @JoinColumn(name = "PRODUCT", nullable = false)
     private Product product;
 
-    @ManyToOne(targetEntity = Location.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Location.class)
     @JoinColumn(name = "LOCATION", nullable = false)
     private Location location;
 }

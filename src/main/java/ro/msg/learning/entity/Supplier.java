@@ -16,12 +16,14 @@ public class Supplier implements Serializable {
 
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "supplier_sequence")
+    @SequenceGenerator(name = "supplier_sequence", sequenceName = "supplier_sequence", allocationSize = 1, initialValue = 1000)
     private Long id;
 
     @Column(name = "NAME", nullable = false, length = 50)
     private String name;
 
-    @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY)
-    private List<Product> supplierList = new ArrayList<>();
+    @OneToMany(mappedBy = "supplier")
+    private List<Product> productList = new ArrayList<>();
 }
 
