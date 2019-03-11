@@ -42,18 +42,18 @@ public class OrderService {
 
     public Order createOrder(OrderTO orderTO) {
 
-        final Location location = locationStrategyContext.establishLocation(orderTO.getProductIdQuantityMap());
+        Address deliveryAddress = new Address();
+        deliveryAddress.setCity(orderTO.getCity());
+        deliveryAddress.setCountry(orderTO.getCountry());
+        deliveryAddress.setCounty(orderTO.getCounty());
+        deliveryAddress.setStreetAddress(orderTO.getStreetAddress());
+
+        final Location location = locationStrategyContext.establishLocation(orderTO.getProductIdQuantityMap(), deliveryAddress);
 
         Order order = new Order();
         order.setShippedFromLocation(location);
         order.setCustomer(customerRepository.getOne(1l));
-
-        Address address = new Address();
-        address.setCity(orderTO.getCity());
-        address.setCountry(orderTO.getCountry());
-        address.setCounty(orderTO.getCounty());
-        address.setStreetAddress(orderTO.getStreetAddress());
-        order.setAddress(address);
+        order.setAddress(deliveryAddress);
 
         final Order persistedOrder = orderRepository.save(order);
 

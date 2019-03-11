@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import ro.msg.learning.exception.GoogleDistanceMatrixException;
 import ro.msg.learning.exception.LocationNotFoundException;
 import ro.msg.learning.exception.OrderValidationException;
 
@@ -29,7 +30,15 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
         String bodyOfResponse = ex.toString();
         return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(value = {GoogleDistanceMatrixException.class})
+    protected ResponseEntity<Object> handleConflict(GoogleDistanceMatrixException ex, WebRequest request) {
+
+        String bodyOfResponse = ex.getMessage();
+        return handleExceptionInternal(ex, bodyOfResponse,
+                new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 }
 

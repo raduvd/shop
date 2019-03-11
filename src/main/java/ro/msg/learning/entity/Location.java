@@ -16,7 +16,7 @@ import java.util.List;
 @Entity(name = "LOCATION")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Location implements Serializable{
+public class Location implements Serializable {
 
     public Location(Long id) {
         this.id = id;
@@ -27,6 +27,7 @@ public class Location implements Serializable{
         this.name = location.name;
         this.orderList = location.orderList;
         this.stockList = location.stockList;
+        this.address = location.address;
     }
 
     @Id
