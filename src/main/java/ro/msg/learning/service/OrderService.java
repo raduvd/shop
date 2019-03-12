@@ -54,6 +54,7 @@ public class OrderService {
         order.setShippedFromLocation(location);
         order.setCustomer(customerRepository.getOne(1l));
         order.setAddress(deliveryAddress);
+        order.setDateOfOrder(orderTO.getDate());
 
         final Order persistedOrder = orderRepository.save(order);
 

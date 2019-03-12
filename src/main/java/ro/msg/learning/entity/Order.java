@@ -2,13 +2,12 @@ package ro.msg.learning.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +19,14 @@ import java.util.List;
 @ToString(exclude = {"shippedFromLocation", "customer"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
         property = "@id")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order implements Serializable {
+
+    public Order(Long id) {
+
+        this.id = id;
+    }
 
     @Id
     @Column(name = "ID")
@@ -35,6 +41,10 @@ public class Order implements Serializable {
     @ManyToOne(targetEntity = Customer.class)
     @JoinColumn(name = "CUSTOMER", nullable = false)
     private Customer customer;
+
+    @Temporal(value = TemporalType.DATE)
+    @Column(name = "DATE_OF_ORDER")
+    private Date dateOfOrder;
 
     @Embedded
     private Address address;

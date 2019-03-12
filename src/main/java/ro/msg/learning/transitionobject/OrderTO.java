@@ -13,7 +13,8 @@ import java.util.Map;
 @Data
 public class OrderTO {
 
-    private Date timestamp;
+    @NotNull
+    private Date date;
 
     @NotNull
     @NotEmpty

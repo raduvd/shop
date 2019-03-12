@@ -2,9 +2,7 @@ package ro.msg.learning.entity.composite;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import ro.msg.learning.entity.Order;
 import ro.msg.learning.entity.Product;
 
@@ -22,6 +20,8 @@ import java.io.Serializable;
 @ToString(exclude = {"shopOrder", "product"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
         property = "@id")
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderDetailCompositeKey implements Serializable {
 
     @ManyToOne(targetEntity = Order.class)

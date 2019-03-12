@@ -1,6 +1,8 @@
 package ro.msg.learning.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ro.msg.learning.entity.composite.OrderDetailCompositeKey;
 
 import javax.persistence.Column;
@@ -13,6 +15,8 @@ import java.io.Serializable;
  */
 @Data
 @Entity(name = "ORDER_DETAIL")
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderDetail implements Serializable {
 
     @EmbeddedId
