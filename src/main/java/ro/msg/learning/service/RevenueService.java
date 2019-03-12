@@ -34,27 +34,29 @@ public class RevenueService {
     @Scheduled(cron = "0 0 1 * * *")
     public void aggregateSales() {
 
-        final Date yesterdayDate = getYesterdayDate();
-        final List<Order> orderList = orderRepository.getByDateOfOrder(yesterdayDate);
+        Calendar date = new GregorianCalendar();
+        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+
+        Date todayMidnight = date.getTime();
+        date.add(Calendar.DAY_OF_MONTH, -1);
+        Date yesterdayMidnight = date.getTime();
+
+        final List<Order> orderList = orderRepository.getByDateOfOrderBetween(yesterdayMidnight, todayMidnight);
 
         final Map<Location, List<Order>> locationIdOrderMap = mapOrderListByLocation(orderList);
 
         for (Location location : locationIdOrderMap.keySet()) {
 
             Revenue revenue = new Revenue();
-            revenue.setDate(yesterdayDate);
+            revenue.setDate(todayMidnight);
             revenue.setLocation(location);
             revenue.setSum(calculatePriceSumForLocation(locationIdOrderMap.get(location)));
 
             revenueRepository.save(revenue);
         }
-    }
-
-    private Date getYesterdayDate() {
-
-        final Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
-        return cal.getTime();
     }
 
     public BigDecimal calculatePriceSumForLocation(List<Order> orderList) {

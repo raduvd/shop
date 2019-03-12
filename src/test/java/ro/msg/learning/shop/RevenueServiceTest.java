@@ -39,7 +39,7 @@ public class RevenueServiceTest {
     public void calculatePriceSumForLocationTest() {
 
         Assert.assertTrue(revenueService.calculatePriceSumForLocation(Arrays.asList(
-                createOrder(), createOrder())).toString().equals("32.399999999999998578914528479799628257751464843750"));
+                createOrder(), createOrder())).doubleValue() == 32.4 );
     }
 
     private OrderDetail createOrderDetail(BigDecimal productPrice, Integer orderQuantity) {

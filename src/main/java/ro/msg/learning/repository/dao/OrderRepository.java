@@ -12,5 +12,5 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    public List<Order> getByDateOfOrder(Date dateOfOrder);
+    public List<Order> getByDateOfOrderBetween(Date fromDate, Date toDate);
 }

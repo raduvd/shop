@@ -11,7 +11,7 @@ create table order_detail (order_quantity integer not null, product bigint not n
 create table product (id bigint not null, description varchar(1000), name varchar(50) not null, price decimal(10,2) not null, weight double not null, product_category bigint not null, supplier bigint not null, primary key (id));
 create table product_category (id bigint not null, description varchar(1000), name varchar(50) not null, primary key (id));
 create table revenue (id bigint not null, date date, sum decimal(10,2) not null, location bigint not null, primary key (id));
-create table shop_order (id bigint not null, city varchar(50), country varchar(50) not null, county varchar(50), street_address varchar(510) not null, date_of_order date, customer bigint not null, shipped_from_location bigint not null, primary key (id));
+create table shop_order (id bigint not null, city varchar(50), country varchar(50) not null, county varchar(50), street_address varchar(510) not null, date_of_order timestamp, customer bigint not null, shipped_from_location bigint not null, primary key (id));
 create table stock (quantity integer not null, location bigint not null, product bigint not null, primary key (location, product));
 create table supplier (id bigint not null, name varchar(50) not null, primary key (id));
 create table user (user_id bigint not null, email varchar(255), enabled boolean, password varchar(255), username varchar(255), primary key (user_id));
