@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriTemplate;
 import ro.msg.learning.entity.Address;
 import ro.msg.learning.entity.Location;
 import ro.msg.learning.exception.GoogleDistanceMatrixException;
@@ -15,6 +16,7 @@ import ro.msg.learning.repository.dao.LocationRepository;
 import ro.msg.learning.service.strategy.LocationStrategy;
 import ro.msg.learning.transitionobject.google.GoogleDistanceMatrixApiResponse;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -57,12 +59,9 @@ public class ClosestLocation implements LocationStrategy {
             final String stockLocationAddressString = stockLocation.getAddress().toString();
             final String googleApiKey = environment.getProperty("GoogleApiKey");
 
-            String url = "https://maps.googleapis.com/maps/api/distancematrix/json?"
-                    + "origins=" + stockLocationAddressString
-                    + "&destinations=" + deliveryAddressString
-                    + "&key=" + googleApiKey;
+            final URI uri = new UriTemplate(environment.getProperty("googleDistanceMatrxUrl")).expand(deliveryAddressString, stockLocationAddressString, googleApiKey);
 
-            final ResponseEntity<GoogleDistanceMatrixApiResponse> forEntity = restTemplate.getForEntity(url, GoogleDistanceMatrixApiResponse.class);
+            final ResponseEntity<GoogleDistanceMatrixApiResponse> forEntity = restTemplate.getForEntity(uri.toString(), GoogleDistanceMatrixApiResponse.class);
 
             if (forEntity.getStatusCode().equals(HttpStatus.OK)) {
                 validateGoogleDistanceMatrixApiResponse(forEntity.getBody());

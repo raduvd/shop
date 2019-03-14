@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JPAEDMMappingModel
+        xmlns="http://www.apache.org/olingo/odata2/jpa/processor/api/model/mapping">
+    <PersistenceUnit name="local">
+        <EDMSchemaNamespace>local</EDMSchemaNamespace>
+        <JPAEntityTypes>
+            <JPAEntityType name="Product">
+                <EDMEntityType>Product</EDMEntityType>
+                <EDMEntitySet>Products</EDMEntitySet>
+                <JPAAttributes>
+                    <JPAAttribute name="soId">ID</JPAAttribute>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="Customer">
+                <EDMEntityType>Customer</EDMEntityType>
+                <EDMEntitySet>Customers</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="Location">
+                <EDMEntityType>Location</EDMEntityType>
+                <EDMEntitySet>Locations</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="Order">
+                <EDMEntityType>Order</EDMEntityType>
+                <EDMEntitySet>Orders</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="OrderDetail">
+                <EDMEntityType>OrderDetail</EDMEntityType>
+                <EDMEntitySet>OrderDetails</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="ProductCategory">
+                <EDMEntityType>ProductCategory</EDMEntityType>
+                <EDMEntitySet>ProductCategorys</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="Revenue">
+                <EDMEntityType>Revenue</EDMEntityType>
+                <EDMEntitySet>Revenues</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="Stock">
+                <EDMEntityType>Stock</EDMEntityType>
+                <EDMEntitySet>Stocks</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="Supplier">
+                <EDMEntityType></EDMEntityType>
+                <EDMEntitySet></EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="User">
+                <EDMEntityType>User</EDMEntityType>
+                <EDMEntitySet>Users</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="UserRole">
+                <EDMEntityType>UserRole</EDMEntityType>
+                <EDMEntitySet>UserRoles</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+           <!-- <JPAEntityType name="ProductCategory">
+                <EDMEntityType>ProductCategory</EDMEntityType>
+                <EDMEntitySet>ProductCategories</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="Customer">
+                <EDMEntityType>Customer</EDMEntityType>
+                <EDMEntitySet>Customers</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="ProductText">
+                <EDMEntityType>ProductText</EDMEntityType>
+                <EDMEntitySet>ProductTexts</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="PurchaseOrderHeader">
+                <EDMEntityType>PurchaseOrderHeader</EDMEntityType>
+                <EDMEntitySet>PurchaseOrderHeaders</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                    <JPARelationship name="purchaseOrderItems">Items</JPARelationship>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="Stock">
+                <EDMEntityType>Stock</EDMEntityType>
+                <EDMEntitySet>Stock</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                    <JPARelationship name="product">ProductDetails</JPARelationship>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="SalesOrderHeader">
+                <EDMEntityType>SalesOrderHeader</EDMEntityType>
+                <EDMEntitySet>SalesOrderHeaders</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                    <JPARelationship name="salesOrderItems">Items</JPARelationship>
+                    <JPARelationship name="customer">CustomerDetails</JPARelationship>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="Product">
+                <EDMEntityType>Product</EDMEntityType>
+                <EDMEntitySet>Products</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                    <JPARelationship name="supplier">SupplierDetails</JPARelationship>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="Supplier">
+                <EDMEntityType>Supplier</EDMEntityType>
+                <EDMEntitySet>Suppliers</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                    <JPARelationship name="products">Products</JPARelationship>
+                </JPARelationships>
+            </JPAEntityType>
+            <JPAEntityType name="SalesOrderItem">
+                <EDMEntityType>SalesOrderItem</EDMEntityType>
+                <EDMEntitySet>SalesOrderItems</EDMEntitySet>
+                <JPAAttributes>
+                </JPAAttributes>
+                <JPARelationships>
+                    <JPARelationship name="salesOrderHeader">Header</JPARelationship>
+                    <JPARelationship name="product">ProductDetails</JPARelationship>
+                </JPARelationships>
+            </JPAEntityType>-->
+
+        </JPAEntityTypes>
+        <JPAEmbeddableTypes>
+           <!-- <JPAEmbeddableType name="PurchaseOrderItemId">
+                &lt;!&ndash;
+                <EDMComplexType>AddressInfo</EDMComplexType>
+                <JPAAttributes>
+                  <JPAAttribute name="houseNumber">Number</JPAAttribute>
+                  <JPAAttribute name="streetName">Street</JPAAttribute>
+                </JPAAttributes>
+                &ndash;&gt;
+            </JPAEmbeddableType>
+            <JPAEmbeddableType name="SalesOrderItemId">
+                &lt;!&ndash;
+                 <EDMComplexType>AddressInfo</EDMComplexType>
+                 <JPAAttributes>
+                   <JPAAttribute name="houseNumber">Number</JPAAttribute>
+                   <JPAAttribute name="streetName">Street</JPAAttribute>
+                 </JPAAttributes>
+                 &ndash;&gt;
+            </JPAEmbeddableType>-->
+        </JPAEmbeddableTypes>
+    </PersistenceUnit>
+</JPAEDMMappingModel>
