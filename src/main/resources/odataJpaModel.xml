@@ -4,7 +4,19 @@
     <PersistenceUnit name="local">
         <EDMSchemaNamespace>local</EDMSchemaNamespace>
         <JPAEntityTypes>
-            <JPAEntityType name="Product">
+            <JPAEntityType name="UserRole">
+                <EDMEntityType>UserRole</EDMEntityType>
+                <EDMEntitySet>UserRoles</EDMEntitySet>
+                <JPAAttributes>
+                    <JPAAttribute name="userRoleId" />
+                    <JPAAttribute name="user" exclude="true" />
+                    <JPAAttribute name="role"/>
+                </JPAAttributes>
+                <JPARelationships>
+                </JPARelationships>
+            </JPAEntityType>
+            
+            <!--<JPAEntityType name="Product">
                 <EDMEntityType>Product</EDMEntityType>
                 <EDMEntitySet>Products</EDMEntitySet>
                 <JPAAttributes>
@@ -84,15 +96,11 @@
                 </JPAAttributes>
                 <JPARelationships>
                 </JPARelationships>
-            </JPAEntityType>
-            <JPAEntityType name="UserRole">
-                <EDMEntityType>UserRole</EDMEntityType>
-                <EDMEntitySet>UserRoles</EDMEntitySet>
-                <JPAAttributes>
-                </JPAAttributes>
-                <JPARelationships>
-                </JPARelationships>
-            </JPAEntityType>
+            </JPAEntityType>-->
+
+
+
+
            <!-- <JPAEntityType name="ProductCategory">
                 <EDMEntityType>ProductCategory</EDMEntityType>
                 <EDMEntitySet>ProductCategories</EDMEntitySet>
