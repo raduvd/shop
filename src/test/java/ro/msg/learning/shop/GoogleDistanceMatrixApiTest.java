@@ -47,7 +47,6 @@ public class GoogleDistanceMatrixApiTest {
         Location location2 = new Location(null, null, new Address("Romania", "Floresti", "Cluj", "1 Eroilor"), null, null);
         Address deliveryAddress = new Address("Romania", "Cluj-Napoca", "Cluj", "7 Brassai Samuel");
 
-        //TODO access the property file, use @PropertySource("classpath:application-test.properties") at class level, or something
         when(environment.getProperty("googleDistanceMatrxUrl")).thenReturn("https://maps.googleapis.com/maps/api/" +
                 "distancematrix/json?origins={stockLocationAddressString}&destinations={deliveryAddressString}&key={googleApiKey}");
         when(locationRepository.findLocationsWithAllProductsAndQuantityInStock(productsIdQuantityMap)).thenReturn(Arrays.asList(location2, location1));
