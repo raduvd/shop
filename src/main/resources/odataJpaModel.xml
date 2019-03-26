@@ -4,42 +4,16 @@
     <PersistenceUnit name="local">
         <EDMSchemaNamespace>local</EDMSchemaNamespace>
         <JPAEntityTypes>
-            <JPAEntityType name="UserRole">
-                <EDMEntityType>UserRole</EDMEntityType>
-                <EDMEntitySet>UserRoles</EDMEntitySet>
-                <JPAAttributes>
-                    <JPAAttribute name="userRoleId"/>
-                    <JPAAttribute name="user" exclude="true"/>
-                    <JPAAttribute name="role"/>
-                </JPAAttributes>
-                <JPARelationships>
-                </JPARelationships>
-            </JPAEntityType>
-            <JPAEntityType name="Product" exclude="true">
+            <JPAEntityType name="PRODUCT">
                 <EDMEntityType>Product</EDMEntityType>
                 <EDMEntitySet>Products</EDMEntitySet>
                 <JPAAttributes>
+                    <JPAAttribute name="name">NEW NAME</JPAAttribute>
                 </JPAAttributes>
                 <JPARelationships>
                 </JPARelationships>
             </JPAEntityType>
-            <JPAEntityType name="Customer" exclude="true">
-                <EDMEntityType>Customer</EDMEntityType>
-                <EDMEntitySet>Customers</EDMEntitySet>
-                <JPAAttributes>
-                </JPAAttributes>
-                <JPARelationships>
-                </JPARelationships>
-            </JPAEntityType>
-            <JPAEntityType name="Location" exclude="true">
-                <EDMEntityType>Location</EDMEntityType>
-                <EDMEntitySet>Locations</EDMEntitySet>
-                <JPAAttributes>
-                </JPAAttributes>
-                <JPARelationships>
-                </JPARelationships>
-            </JPAEntityType>
-            <JPAEntityType name="Order" exclude="true">
+            <JPAEntityType name="SHOP_ORDER">
                 <EDMEntityType>Order</EDMEntityType>
                 <EDMEntitySet>Orders</EDMEntitySet>
                 <JPAAttributes>
@@ -47,7 +21,7 @@
                 <JPARelationships>
                 </JPARelationships>
             </JPAEntityType>
-            <JPAEntityType name="OrderDetail" exclude="true">
+            <JPAEntityType name="ORDER_DETAIL">
                 <EDMEntityType>OrderDetail</EDMEntityType>
                 <EDMEntitySet>OrderDetails</EDMEntitySet>
                 <JPAAttributes>
@@ -55,58 +29,26 @@
                 <JPARelationships>
                 </JPARelationships>
             </JPAEntityType>
-            <JPAEntityType name="ProductCategory" exclude="true">
-                <EDMEntityType>ProductCategory</EDMEntityType>
-                <EDMEntitySet>ProductCategorys</EDMEntitySet>
-                <JPAAttributes>
-                </JPAAttributes>
-                <JPARelationships>
-                </JPARelationships>
-            </JPAEntityType>
-            <JPAEntityType name="Revenue" exclude="true">
-                <EDMEntityType>Revenue</EDMEntityType>
-                <EDMEntitySet>Revenues</EDMEntitySet>
-                <JPAAttributes>
-                </JPAAttributes>
-                <JPARelationships>
-                </JPARelationships>
-            </JPAEntityType>
-            <JPAEntityType name="Stock" exclude="true">
-                <EDMEntityType>Stock</EDMEntityType>
-                <EDMEntitySet>Stocks</EDMEntitySet>
-                <JPAAttributes>
-                </JPAAttributes>
-                <JPARelationships>
-                </JPARelationships>
-            </JPAEntityType>
-            <JPAEntityType name="Supplier" exclude="true">
-                <EDMEntityType>Supplier</EDMEntityType>
-                <EDMEntitySet>Suppliers</EDMEntitySet>
-                <JPAAttributes>
-                </JPAAttributes>
-                <JPARelationships>
-                </JPARelationships>
-            </JPAEntityType>
-            <JPAEntityType name="User" exclude="true">
-                <EDMEntityType>User</EDMEntityType>
-                <EDMEntitySet>Users</EDMEntitySet>
-                <JPAAttributes>
-                </JPAAttributes>
-                <JPARelationships>
-                </JPARelationships>
-            </JPAEntityType>
+            <JPAEntityType name="USER_ROLE" exclude="true"><JPAAttributes/><JPARelationships/></JPAEntityType>
+            <JPAEntityType name="LOCATION" exclude="true"><JPAAttributes/><JPARelationships/></JPAEntityType>
+            <JPAEntityType name="CUSTOMER" exclude="true"><JPAAttributes/><JPARelationships/></JPAEntityType>
+            <JPAEntityType name="PRODUCT_CATEGORY" exclude="true"><JPAAttributes/><JPARelationships/></JPAEntityType>
+            <JPAEntityType name="REVENUE" exclude="true"><JPAAttributes/><JPARelationships/></JPAEntityType>
+            <JPAEntityType name="STOCK" exclude="true"><JPAAttributes/><JPARelationships/></JPAEntityType>
+            <JPAEntityType name="SUPPLIER" exclude="true"><JPAAttributes/><JPARelationships/></JPAEntityType>
+            <JPAEntityType name="USER" exclude="true"><JPAAttributes/><JPARelationships/></JPAEntityType>
         </JPAEntityTypes>
         <JPAEmbeddableTypes>
-            <JPAEmbeddableType name="OrderDetailCompositeKey" exclude="true">
+            <JPAEmbeddableType name="OrderDetailCompositeKey">
                 <JPAAttributes>
-                    <JPAAttribute name="product" exclude="true">Product</JPAAttribute>
-                    <JPAAttribute name="shopOrder" exclude="true">Order</JPAAttribute>
+                    <JPAAttribute name="product" exclude="true"></JPAAttribute>
+                    <JPAAttribute name="shopOrder" exclude="true"></JPAAttribute>
                 </JPAAttributes>
             </JPAEmbeddableType>
-            <JPAEmbeddableType name="StockCompositeKey" exclude="true">
+            <JPAEmbeddableType name="StockCompositeKey">
                 <JPAAttributes>
-                    <JPAAttribute name="product" exclude="true">Product</JPAAttribute>
-                    <JPAAttribute name="location" exclude="true">Location</JPAAttribute>
+                    <JPAAttribute name="product" exclude="true"></JPAAttribute>
+                    <JPAAttribute name="location" exclude="true"></JPAAttribute>
                 </JPAAttributes>
             </JPAEmbeddableType>
         </JPAEmbeddableTypes>

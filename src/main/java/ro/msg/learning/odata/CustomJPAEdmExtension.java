@@ -10,25 +10,20 @@ public class CustomJPAEdmExtension implements JPAEdmExtension {
 
     @Override
     public void extendWithOperation(JPAEdmSchemaView jpaEdmSchemaView) {
+
+        //Not implemented right now
+        //Here we can write function import
     }
 
     @Override
     public void extendJPAEdmSchema(JPAEdmSchemaView jpaEdmSchemaView) {
+
+        //Not implemented right now
     }
 
     @Override
     public InputStream getJPAEdmMappingModelStream() {
 
-        final InputStream resourceAsStream = JPAEdmExtension.class.getClassLoader().getResourceAsStream("odataJpaModel.xml");
-        return resourceAsStream;
-
-        /*ClassPathResource classPathResource = new ClassPathResource("odataJpaModel.xml");
-        InputStream inputStream = null;
-        try {
-            inputStream = classPathResource.getInputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return inputStream;*/
+        return JPAEdmExtension.class.getClassLoader().getResourceAsStream("odataJpaModel.xml");
     }
 }
