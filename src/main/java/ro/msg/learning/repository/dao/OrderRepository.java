@@ -3,7 +3,7 @@ package ro.msg.learning.repository.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ro.msg.learning.entity.Order;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -12,5 +12,5 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    public List<Order> getByDateOfOrderBetween(Date fromDate, Date toDate);
+    public List<Order> getByDateOfOrderBetween(LocalDateTime fromDate, LocalDateTime toDate);
 }

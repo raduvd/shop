@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ro.msg.learning.entity.User;
+import ro.msg.learning.entity.UserRole;
 import ro.msg.learning.repository.dao.UserRepository;
-import ro.msg.learning.repository.dao.UserRoleRepository;
 
 import java.util.List;
 
@@ -21,12 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserRepository userRepository;
 
-    private UserRoleRepository userRoleRepository;
-
     @Autowired
-    public UserDetailsServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository) {
+    public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userRoleRepository = userRoleRepository;
     }
 
     @Override
@@ -35,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         final User user = userRepository.findByUserName(username);
         if (user == null)
             throw new UsernameNotFoundException("No user was found with username: " + username);
-        final List<String> userRoleList = userRoleRepository.findRolesByUserName(username);
+        final List<UserRole> userRoleList = user.getUserRoleList();
 
         return new CustomUserDetails(user, userRoleList);
     }

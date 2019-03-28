@@ -6,8 +6,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,9 +42,8 @@ public class Order implements Serializable {
     @JoinColumn(name = "CUSTOMER", nullable = false)
     private Customer customer;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "DATE_OF_ORDER")
-    private Date dateOfOrder;
+    private LocalDateTime dateOfOrder;
 
     @Embedded
     private Address address;

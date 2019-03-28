@@ -37,10 +37,11 @@ public class LocationCustomRepositoryImpl implements LocationCustomRepository {
         Path<Long> locationId = location.get("id");
 
         List<Predicate> predicateList = new ArrayList<>();
-        for (Long productId : productsIdQuantityMap.keySet()) {
+
+        productsIdQuantityMap.keySet().forEach(productId -> {
             predicateList.add(criteriaBuilder.and(criteriaBuilder.equal(productIdFromLocationStock, productId),
                     criteriaBuilder.greaterThanOrEqualTo(quantityFromLocationStock, productsIdQuantityMap.get(productId))));
-        }
+        });
 
         //Mock: Select * from Location where [product id = mapKey AND quantity = mapValue] GROUP BY locationId HAVING COUNT (productId) = mapSize
         query.multiselect(location).where(criteriaBuilder.or(predicateList.toArray(new Predicate[predicateList.size()]))).

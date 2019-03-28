@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import ro.msg.learning.entity.User;
+import ro.msg.learning.entity.UserRole;
 
 import java.util.Collection;
 import java.util.List;
@@ -18,9 +19,9 @@ import java.util.List;
 @EqualsAndHashCode
 public class CustomUserDetails extends User implements UserDetails {
 
-    private List<String> userRoleList;
+    private List<UserRole> userRoleList;
 
-    public CustomUserDetails(User user, List<String> userRoleList) {
+    public CustomUserDetails(User user, List<UserRole> userRoleList) {
         super(user);
         this.userRoleList = userRoleList;
     }

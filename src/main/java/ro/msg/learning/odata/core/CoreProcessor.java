@@ -16,6 +16,7 @@ import ro.msg.learning.service.OrderService;
 import ro.msg.learning.transitionobject.OrderTO;
 
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static ro.msg.learning.odata.core.CoreEdmProvider.ENTITY_ORDER_TO;
@@ -52,8 +53,7 @@ public class CoreProcessor extends ODataSingleProcessor {
 
         List<Map<String, Object>> orders = new ArrayList<>();
 
-        for (Order order : orderList) {
-
+        orderList.forEach(order -> {
             Map<String, Object> orderMap = new HashMap<>();
             orderMap.put("StreetAddress", order.getAddress().getStreetAddress());
             orderMap.put("Country", order.getAddress().getCountry());
@@ -62,24 +62,18 @@ public class CoreProcessor extends ODataSingleProcessor {
             orderMap.put("OrderId", order.getId());
 
             orders.add(orderMap);
-        }
+        });
 
         return orders;
     }
 
-    /**
-     * Json Example {"Country":"RO","City":"Cluj","County":"CJ","StreetAddress":"Brassai Samuel 7", "Product" : [{"ProductId":1, "Quantity":2},{"ProductId":2, "Quantity":2}]}
-     *
-     * @param entry
-     * @return
-     */
     private OrderTO mapODataEntryToOrderTO(ODataEntry entry) {
 
         OrderTO orderTO = new OrderTO();
 
         final Map<String, Object> properties = entry.getProperties();
 
-        for (String property : properties.keySet()) {
+        properties.keySet().forEach(property -> {
             switch (property) {
                 case "StreetAddress":
                     orderTO.setStreetAddress(properties.get(property).toString());
@@ -97,16 +91,18 @@ public class CoreProcessor extends ODataSingleProcessor {
                     final List<ODataEntry> productList = ((ODataDeltaFeedImpl) properties.get(property)).getEntries();
                     Map<Long, Integer> productIdQuantityMap = new HashMap<>();
 
-                    for (ODataEntry product : productList) {
+                    productList.forEach(product -> {
                         final Integer quantity = (Integer) product.getProperties().get("Quantity");
                         final Long productId = ((Integer) product.getProperties().get("ProductId")).longValue();
                         productIdQuantityMap.put(productId, quantity);
-                    }
+                    });
+
                     orderTO.setProductIdQuantityMap(productIdQuantityMap);
                     break;
             }
-        }
-        orderTO.setDate(new Date());
+        });
+
+        orderTO.setDate(LocalDateTime.now());
         return orderTO;
     }
 }

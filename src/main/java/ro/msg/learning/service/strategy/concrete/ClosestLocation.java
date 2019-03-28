@@ -53,8 +53,7 @@ public class ClosestLocation implements LocationStrategy {
 
         TreeMap<GoogleDistanceMatrixApiResponse, Location> locationDistanceMap = new TreeMap<>();
 
-        for (Location stockLocation : locationsWithAllProductsAndQuantityInStock) {
-
+        locationsWithAllProductsAndQuantityInStock.forEach(stockLocation -> {
             final String deliveryAddressString = deliveryAddress.toString();
             final String stockLocationAddressString = stockLocation.getAddress().toString();
             final String googleApiKey = environment.getProperty("GoogleApiKey");
@@ -69,7 +68,7 @@ public class ClosestLocation implements LocationStrategy {
             } else {
                 throw new GoogleDistanceMatrixException(forEntity.getStatusCode().getReasonPhrase());
             }
-        }
+        });
 
         return locationDistanceMap.firstEntry().getValue();
     }

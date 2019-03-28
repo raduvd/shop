@@ -3,20 +3,26 @@ package ro.msg.learning.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ro.msg.learning.entity.Location;
 import ro.msg.learning.entity.Order;
-import ro.msg.learning.entity.OrderDetail;
 import ro.msg.learning.entity.Revenue;
 import ro.msg.learning.repository.dao.OrderRepository;
 import ro.msg.learning.repository.dao.RevenueRepository;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by vancer at 3/1/2019
  */
 @Service
+@Transactional
 public class RevenueService {
 
     private OrderRepository orderRepository;
@@ -34,64 +40,44 @@ public class RevenueService {
     @Scheduled(cron = "0 0 1 * * *")
     public void aggregateSales() {
 
-        Calendar date = new GregorianCalendar();
-        date.set(Calendar.HOUR_OF_DAY, 0);
-        date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
-
-        Date todayMidnight = date.getTime();
-        date.add(Calendar.DAY_OF_MONTH, -1);
-        Date yesterdayMidnight = date.getTime();
+        LocalTime midnight = LocalTime.MIDNIGHT;
+        LocalDateTime todayMidnight = LocalDateTime.of(LocalDate.now(), midnight);
+        LocalDateTime yesterdayMidnight = todayMidnight.minusDays(1l);
 
         final List<Order> orderList = orderRepository.getByDateOfOrderBetween(yesterdayMidnight, todayMidnight);
 
         final Map<Location, List<Order>> locationIdOrderMap = mapOrderListByLocation(orderList);
 
-        for (Location location : locationIdOrderMap.keySet()) {
-
+        locationIdOrderMap.keySet().forEach(location -> {
             Revenue revenue = new Revenue();
             revenue.setDate(todayMidnight);
             revenue.setLocation(location);
             revenue.setSum(calculatePriceSumForLocation(locationIdOrderMap.get(location)));
-
             revenueRepository.save(revenue);
-        }
+        });
     }
 
     public BigDecimal calculatePriceSumForLocation(List<Order> orderList) {
 
-        BigDecimal priceSumForLocation = new BigDecimal(0);
+        BigDecimal[] priceSumForLocation = {BigDecimal.ZERO};
 
-        for (Order order : orderList) {
-
-            for (OrderDetail orderDetail : order.getOrderDetailList()) {
-
+        orderList.forEach(order -> {
+            order.getOrderDetailList().forEach(orderDetail -> {
                 final BigDecimal price = orderDetail.getOrderDetailCompositeKey().getProduct().getPrice();
                 final Integer quantity = orderDetail.getOrderQuantity();
-                final BigDecimal priceSumForProduct = BigDecimal.valueOf(price.doubleValue() * quantity);
-                priceSumForLocation = priceSumForLocation.add(priceSumForProduct);
-            }
-        }
-        return priceSumForLocation;
+                final BigDecimal priceSumForProduct = price.multiply(BigDecimal.valueOf(quantity));
+                priceSumForLocation[0] = priceSumForLocation[0].add(priceSumForProduct);
+            });
+        });
+        return priceSumForLocation[0];
     }
 
 
     public Map<Location, List<Order>> mapOrderListByLocation(List<Order> orderList) {
 
-        Map<Location, List<Order>> locationOrderListMap = new HashMap();
+        Map<Location, List<Order>> locationOrderListMap =
+                orderList.stream().collect(Collectors.groupingBy(Order::getShippedFromLocation));
 
-        for (Order order : orderList) {
-
-            final Location mapKey = order.getShippedFromLocation();
-
-            final List<Order> newLocationOrderList = new ArrayList<>();
-            newLocationOrderList.add(order);
-
-            final List<Order> existingLocationOrderList = locationOrderListMap.putIfAbsent(mapKey, newLocationOrderList);
-            if (existingLocationOrderList != null)
-                existingLocationOrderList.add(order);
-        }
         return locationOrderListMap;
     }
 }

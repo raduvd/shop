@@ -23,7 +23,6 @@ import static org.mockito.Mockito.when;
  * Created by vancer at 3/11/2019
  */
 @RunWith(MockitoJUnitRunner.class)
-@PropertySource("classpath:application.properties ")
 public class GoogleDistanceMatrixApiTest {
 
     @Mock

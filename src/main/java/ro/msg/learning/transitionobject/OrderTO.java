@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -14,7 +14,7 @@ import java.util.Map;
 public class OrderTO {
 
     @NotNull
-    private Date date;
+    private LocalDateTime date;
 
     @NotNull
     @NotEmpty

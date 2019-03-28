@@ -23,6 +23,8 @@ public class UserRole implements Serializable {
     @Column(name = "ROLE")
     private String role;
 
-
+    public String toString() {
+        return role;
+    }
 }
 

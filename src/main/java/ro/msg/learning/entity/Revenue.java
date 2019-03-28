@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Created by vancer at 2/12/2019
@@ -24,9 +24,8 @@ public class Revenue implements Serializable {
     @JoinColumn(name = "LOCATION", nullable = false)
     private Location location;
 
-    @Temporal(value = TemporalType.DATE)
     @Column(name = "DATE")
-    private Date date;
+    private LocalDateTime date;
 
     @Column(name = "SUM", nullable = false, precision = 10, scale = 2)
     private BigDecimal sum;

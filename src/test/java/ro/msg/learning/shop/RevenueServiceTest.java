@@ -13,8 +13,8 @@ import ro.msg.learning.entity.composite.OrderDetailCompositeKey;
 import ro.msg.learning.service.RevenueService;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Created by vancer at 3/12/2019
@@ -29,9 +29,9 @@ public class RevenueServiceTest {
     public void mapOrderListByLocationTest() {
 
         Assert.assertTrue(revenueService.mapOrderListByLocation(Arrays.asList(
-                new Order(1L, new Location(1L), null, new Date(), null, null),
-                new Order(2L, new Location(1L), null, new Date(), null, null),
-                new Order(3L, new Location(2L), null, new Date(), null, null))).size() == 2);
+                new Order(1L, new Location(1L), null, LocalDateTime.now(), null, null),
+                new Order(2L, new Location(1L), null, LocalDateTime.now(), null, null),
+                new Order(3L, new Location(2L), null, LocalDateTime.now(), null, null))).size() == 2);
 
     }
 
@@ -39,7 +39,7 @@ public class RevenueServiceTest {
     public void calculatePriceSumForLocationTest() {
 
         Assert.assertTrue(revenueService.calculatePriceSumForLocation(Arrays.asList(
-                createOrder(), createOrder())).doubleValue() == 32.4 );
+                createOrder(), createOrder())).doubleValue() == 32.4);
     }
 
     private OrderDetail createOrderDetail(BigDecimal productPrice, Integer orderQuantity) {
