@@ -1,43 +1,37 @@
-package ro.msg.learning.odata;
+package ro.msg.learning.odata.core;
 
 import org.apache.olingo.odata2.api.ODataCallback;
 import org.apache.olingo.odata2.api.ODataDebugCallback;
+import org.apache.olingo.odata2.api.ODataService;
+import org.apache.olingo.odata2.api.ODataServiceFactory;
 import org.apache.olingo.odata2.api.commons.HttpStatusCodes;
+import org.apache.olingo.odata2.api.edm.provider.EdmProvider;
 import org.apache.olingo.odata2.api.ep.EntityProvider;
 import org.apache.olingo.odata2.api.exception.ODataApplicationException;
+import org.apache.olingo.odata2.api.exception.ODataException;
+import org.apache.olingo.odata2.api.processor.ODataContext;
 import org.apache.olingo.odata2.api.processor.ODataErrorCallback;
 import org.apache.olingo.odata2.api.processor.ODataErrorContext;
 import org.apache.olingo.odata2.api.processor.ODataResponse;
-import org.apache.olingo.odata2.jpa.processor.api.ODataJPAContext;
-import org.apache.olingo.odata2.jpa.processor.api.ODataJPAServiceFactory;
-import org.apache.olingo.odata2.jpa.processor.api.exception.ODataJPARuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Component;
 
 @Component
 @Scope("request")
-public class JpaServiceFactory extends ODataJPAServiceFactory {
+public class CoreServiceFactory extends ODataServiceFactory {
 
-    private final LocalContainerEntityManagerFactoryBean factory;
+    private final EdmProvider edmProvider;
 
     @Autowired
-    public JpaServiceFactory(LocalContainerEntityManagerFactoryBean factory) {
-
-        this.factory = factory;
+    public CoreServiceFactory(EdmProvider edmProvider) {
+        this.edmProvider = edmProvider;
     }
 
     @Override
-    public ODataJPAContext initializeODataJPAContext() throws ODataJPARuntimeException {
-
-        ODataJPAContext context = this.getODataJPAContext();
-        context.setEntityManagerFactory(factory.getObject());
-        context.setPersistenceUnitName("local");
-        context.setJPAEdmExtension(new CustomJPAEdmExtension());
-        return context;
+    public ODataService createService(ODataContext ctx) throws ODataException {
+        return createODataSingleProcessorService(edmProvider, new CoreProcessor());
     }
-
 
     @Override
     @SuppressWarnings("unchecked")

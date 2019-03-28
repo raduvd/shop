@@ -2,6 +2,7 @@ package ro.msg.learning.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ro.msg.learning.entity.*;
 import ro.msg.learning.entity.composite.OrderDetailCompositeKey;
 import ro.msg.learning.repository.dao.CustomerRepository;
@@ -15,6 +16,7 @@ import ro.msg.learning.transitionobject.OrderTO;
  * Created by vancer at 2/19/2019
  */
 @Service
+@Transactional
 public class OrderService {
 
 

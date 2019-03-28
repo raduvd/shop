@@ -1,4 +1,4 @@
-package ro.msg.learning.odata;
+package ro.msg.learning.odata.jpa;
 
 
 import org.apache.olingo.odata2.jpa.processor.api.model.JPAEdmExtension;
@@ -12,7 +12,7 @@ public class CustomJPAEdmExtension implements JPAEdmExtension {
     public void extendWithOperation(JPAEdmSchemaView jpaEdmSchemaView) {
 
         //Not implemented right now
-        //Here we can write function import
+        //Here we can add function imports
     }
 
     @Override

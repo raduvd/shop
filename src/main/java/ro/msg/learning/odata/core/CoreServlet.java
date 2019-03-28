@@ -1,4 +1,4 @@
-package ro.msg.learning.odata;
+package ro.msg.learning.odata.core;
 
 import org.apache.olingo.odata2.api.ODataServiceFactory;
 import org.apache.olingo.odata2.core.servlet.ODataServlet;
@@ -9,17 +9,17 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 
 @Component
-class ExampleServlet extends ODataServlet {
+public class CoreServlet extends ODataServlet {
 
     private final transient ApplicationContext context;
 
     @Autowired
-    public ExampleServlet(ApplicationContext context) {
+    public CoreServlet(ApplicationContext context) {
         this.context = context;
     }
 
     @Override
     protected ODataServiceFactory getServiceFactory(HttpServletRequest request) {
-        return context.getBean(JpaServiceFactory.class);
+        return context.getBean(CoreServiceFactory.class);
     }
 }
